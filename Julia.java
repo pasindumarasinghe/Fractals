@@ -2,7 +2,7 @@
  * This is the specification of the Julia Set
  */
 public class Julia {
-	private final int ITERATIONS = 1000;//number of iterations
+	private int iterations;//number of iterations
 	
 	//the region of interest
 	private final double real_min = -1;
@@ -18,12 +18,14 @@ public class Julia {
 	public Julia() {
 		this.c_real = -0.4;
 		this.c_imaginary = 0.6;
+		this.iterations = 1000;
 	}
 	
 	//when the user enters 2 command line arguments
-	public Julia(double c_real , double c_imaginary) {
+	public Julia(double c_real , double c_imaginary, int iterations) {
 		this.c_real = c_real;
 		this.c_imaginary = c_imaginary;
+		this.iterations = iterations;
 	}
 
 
