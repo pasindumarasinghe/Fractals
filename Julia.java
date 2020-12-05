@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /*
  * This is the specification of the Julia Set
  */
@@ -26,6 +28,36 @@ public class Julia {
 		this.c_real = c_real;
 		this.c_imaginary = c_imaginary;
 		this.iterations = iterations;
+	}
+	
+	
+	public int getColour(int xvalue, int yvalue) {
+		Complex mapped_point = new Complex(xvalue,yvalue,real_min,real_max,imaginary_min,imaginary_max);
+		double a = mapped_point.getX();
+		double b = mapped_point.getY();
+		
+		
+		int i;
+		for(i = 0 ; i < iterations ; i++) {
+			double aa = a*a;
+			double bb = b*b;
+			double two_ab = 2*a*b;
+			
+			a = aa-bb + c_real;
+			b = two_ab + c_imaginary;
+			
+			if(aa + bb > 4) break;
+		}
+		
+		/*If abs(Zn) exceeds 2 before the loop ends, i is less than the number of iterations
+		 * if  abs(Zn) didnt exceed 2 by the end of the loop the number can be considered a Julia
+		number.
+		 */
+		if(i == iterations) return 0; //if the complex number is a Julia number return black
+		else return i%700;
+
+		
+		
 	}
 
 

@@ -11,7 +11,7 @@ public class Complex {
 	private double imaginary_max;
 	
 	
-	private int x;
+	private int x;//x and y are integers in the range [800,800]
 	private int y;
 	private double cx;
 	private double cy;

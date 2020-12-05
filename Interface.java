@@ -20,7 +20,7 @@ public class Interface extends JComponent{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(this);
 		frame.pack(); 
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		
 		bi = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);

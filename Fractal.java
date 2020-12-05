@@ -21,17 +21,11 @@ public class Fractal{
 			//rendering the mandelbrot set
 			for(int x=0 ; x < HEIGHT ; x++) {
 				for(int y=0 ; y < WIDTH ; y++) {
-					if(set.isMandelbrot(x,y)) {
-						window.draw(x,y,0x00000000);
-					}
-					
-					else {
-						window.draw(x, y, 0xFFFFFFFF);
-					}
+					window.draw(x,y,set.getColour(x, y));
 				}
 			}
 			
-			window.display();
+			window.display();//display the rendered set
 			
 	}
 			
@@ -39,7 +33,17 @@ public class Fractal{
 			
 			
 		else if(args[0].toLowerCase().equals("julia")) {
-			System.out.println("Julia");
+			Interface window = new Interface("Julia Set");
+			Julia set = new Julia();
+			
+			//rendering the mandelbrot set
+			for(int x=0 ; x < HEIGHT ; x++) {
+				for(int y=0 ; y < WIDTH ; y++) {
+					window.draw(x,y,set.getColour(x, y));
+				}
+			}
+			
+			window.display();//display the rendered set
 		}
 			
 		else { 

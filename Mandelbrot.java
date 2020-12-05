@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /*
  * This is the Specification of the Mandelbrot Set
  */
@@ -37,33 +39,33 @@ public class Mandelbrot {
 	}
 	
 	
-	public boolean isMandelbrot(int xvalue, int yvalue) {
+	public int getColour(int xvalue, int yvalue) {
 		Complex mapped_point = new Complex(xvalue,yvalue,real_min,real_max,imaginary_min,imaginary_max);
 		double cr = mapped_point.getX();
 		double ci = mapped_point.getY();
-		double znr = 0,zni = 0;
-		double zNr,zNi;
+		double a = 0,b = 0; //a = real part of z , b = imaginary part of z
 		
 		//Checking whether the complex number is a mandelbrot number or not.
 		int i;
 		for(i = 0 ; i < iterations ; i++) {
-			zNr = (znr*znr) - (zni*zni) + cr;
-			zNi = 2*znr*zni + ci;
 			
-			znr = zNr;
-			zni = zNi;
+			//a*a and b*b are stored because when the absolute value of z is checked the squared values don't have to be checked again.
+			double aa = a*a;
+			double bb = b*b;
+			double two_ab = 2*a*b;
 			
-			//checking whether the abs(Zn) > 2
-			if((znr*znr+zni*zni) > 4) break;
+			a = aa-bb + cr;
+			b = two_ab + ci;
+			
+			if(aa + bb > 4) break;
 		}
 		
 		/*If abs(Zn) exceeds 2 before the loop ends, i is less than the number of iterations
 		 * if  abs(Zn) didnt exceed 2 by the end of the loop the number can be considered a Mandelbrot
 		number.
 		 */
-		if(i == iterations) return true;
-		else return false;
-		
+		if(i == iterations) return 0; //if the complex number is a mandelbrot number return black
+		else return Color.HSBtoRGB(i/((float)iterations), 1, 10);
 	}
 	
 	
