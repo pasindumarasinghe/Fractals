@@ -23,6 +23,13 @@ public class Julia {
 		this.iterations = 1000;
 	}
 	
+	
+	public Julia(double c_real , double c_imaginary) {
+		this.c_real = c_real;
+		this.c_imaginary = c_imaginary;
+	}
+	
+	
 	//when the user enters 2 command line arguments
 	public Julia(double c_real , double c_imaginary, int iterations) {
 		this.c_real = c_real;
@@ -46,17 +53,15 @@ public class Julia {
 			a = aa-bb + c_real;
 			b = two_ab + c_imaginary;
 			
-			if(aa + bb > 4) break;
+			if(a*a + b*b > 4) break;
 		}
 		
 		/*If abs(Zn) exceeds 2 before the loop ends, i is less than the number of iterations
 		 * if  abs(Zn) didnt exceed 2 by the end of the loop the number can be considered a Julia
 		number.
 		 */
-		if(i == iterations) return 0; //if the complex number is a Julia number return black
-		else return i%700;
-
-		
+		if(i == iterations) return 0x000000; //if the complex number is a Julia number return black
+		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1); 
 		
 	}
 

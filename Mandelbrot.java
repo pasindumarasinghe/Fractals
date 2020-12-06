@@ -15,10 +15,10 @@ public class Mandelbrot {
 	
 	public Mandelbrot() {//default constructor
 		this.iterations = 1000;
-		this.real_min = -1;
-		this.real_max = 1;
-		this.imaginary_min = -1;
-		this.imaginary_max = 1;
+		this.real_min = -1.0;
+		this.real_max = 1.0;
+		this.imaginary_min = -1.0;
+		this.imaginary_max = 1.0;
 	}
 	
 	public Mandelbrot(double real_min,double real_max,double imaginary_min,double imaginary_max) {
@@ -49,7 +49,6 @@ public class Mandelbrot {
 		int i;
 		for(i = 0 ; i < iterations ; i++) {
 			
-			//a*a and b*b are stored because when the absolute value of z is checked the squared values don't have to be checked again.
 			double aa = a*a;
 			double bb = b*b;
 			double two_ab = 2*a*b;
@@ -57,15 +56,16 @@ public class Mandelbrot {
 			a = aa-bb + cr;
 			b = two_ab + ci;
 			
-			if(aa + bb > 4) break;
+			if(a*a + b*b > 4) break;
 		}
 		
 		/*If abs(Zn) exceeds 2 before the loop ends, i is less than the number of iterations
 		 * if  abs(Zn) didnt exceed 2 by the end of the loop the number can be considered a Mandelbrot
 		number.
 		 */
-		if(i == iterations) return 0; //if the complex number is a mandelbrot number return black
-		else return Color.HSBtoRGB(i/((float)iterations), 1, 10);
+		if(i == iterations) return 0x000000; //if the complex number is a mandelbrot number return black
+		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1);//else assign a color
+		
 	}
 	
 	
