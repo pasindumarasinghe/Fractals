@@ -23,10 +23,17 @@ public class Julia {
 		this.iterations = 1000;
 	}
 	
+	public Julia(int iterations) {
+		this.c_real = -0.4;
+		this.c_imaginary = 0.6;
+		this.iterations = iterations;
+	}
+	
 	
 	public Julia(double c_real , double c_imaginary) {
 		this.c_real = c_real;
 		this.c_imaginary = c_imaginary;
+		this.iterations = 1000;
 	}
 	
 	

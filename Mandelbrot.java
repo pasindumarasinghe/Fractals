@@ -21,8 +21,17 @@ public class Mandelbrot {
 		this.imaginary_max = 1.0;
 	}
 	
+	public Mandelbrot(int iterations) {//When the user enters only the number of iterations
+		this.iterations = 1000;
+		this.real_min = -1.0;
+		this.real_max = 1.0;
+		this.imaginary_min = -1.0;
+		this.imaginary_max = 1.0;
+		this.iterations = iterations;
+	}
+	
 	public Mandelbrot(double real_min,double real_max,double imaginary_min,double imaginary_max) {
-		//when the user enters 4 command line arguments
+		//when the user enters 4 command line arguments(The region of interest)
 		this.real_min = real_min;
 		this.real_max = real_max;
 		this.imaginary_min = imaginary_min;
@@ -31,6 +40,7 @@ public class Mandelbrot {
 	}
 	
 	public Mandelbrot(double real_min,double real_max,double imaginary_min,double imaginary_max, int iterations) {
+		//When the user specifies the region of interest and the number of iterations
 		this.real_min = real_min;
 		this.real_max = real_max;
 		this.imaginary_min = imaginary_min;
@@ -64,7 +74,7 @@ public class Mandelbrot {
 		number.
 		 */
 		if(i == iterations) return 0x000000; //if the complex number is a mandelbrot number return black
-		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1);//else assign a color
+		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1);//else assign a color according to the iterations
 		
 	}
 	

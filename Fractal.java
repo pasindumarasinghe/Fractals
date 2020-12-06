@@ -21,12 +21,26 @@ public class Fractal{
 			printUsage();
 		}
 		
-		
-		if(args[0].toLowerCase().equals("mandelbrot")) {
+//		----------------------------------------
+//		 When the User wants the Mandelbrot Set
+//		----------------------------------------
+		if(args[0].toLowerCase().equals("mandelbrot")) {//Handeling the arguments for the Mandelbrot set
 		//The user wants to draw a Mandelbrot Set
 			if(args.length == 1) {
 				renderMandelbrotSet(new Mandelbrot());
 			}
+			
+			else if(args.length == 2) {
+				try {
+					iterations = Integer.parseInt(args[1]);
+					renderMandelbrotSet(new Mandelbrot(iterations));
+				}
+				catch(Exception e) {
+					System.out.println("Invalid Input");
+					printUsage();
+				}
+			}
+			
 			else if(args.length == 5) {
 				try {
 					real_min = Double.parseDouble(args[1]);
@@ -66,14 +80,27 @@ public class Fractal{
 		}
 			
 			
-			
-			
+		
+//		------------------------------------
+//		 When the User wants the Julia Set
+//		------------------------------------
 		else if(args[0].toLowerCase().equals("julia")) {
 			if(args.length == 1) {
 				renderJuliaSet(new Julia());
 			}
 			
-			if(args.length == 3) {
+			else if(args.length == 2) {
+				try {
+					iterations = Integer.parseInt(args[1]);
+					renderJuliaSet(new Julia(iterations));
+				}
+				catch(Exception e) {
+					System.out.println("Invalid Input");
+					printUsage();
+				}
+			}
+			
+			else if(args.length == 3) {
 				try {
 					c_real = Double.parseDouble(args[1]);
 					c_imaginary = Double.parseDouble(args[2]);
@@ -102,9 +129,6 @@ public class Fractal{
 				System.out.println("Wrong Number of Inputs");
 				printUsage();
 			}
-			
-			
-			
 		}
 			
 		else { 
@@ -119,22 +143,153 @@ public class Fractal{
 	public static void renderMandelbrotSet(Mandelbrot set) {
 		//rendering the mandelbrot set
 		Interface window = new Interface("Mandelbrot Set");
-		for(int x=0 ; x < HEIGHT ; x++) {
-			for(int y=0 ; y < WIDTH ; y++) {
-				window.draw(x,y,set.getColour(x, y));
-			}
+		
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,0,100);} 
+			});
+		t1.start();
+		
+		
+		Thread t2 = new Thread(new Runnable() {			
+			@Override
+			public void run() {drawMandelbrotSet(set,window,100,200);} 
+			});
+		t2.start();
+		
+		
+		Thread t3 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,200,300);} 
+			});
+		t3.start();
+		
+		
+		Thread t4 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,300,400);} 
+			});
+		t4.start();
+		
+		Thread t5 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,400,500);} 
+			});
+		t5.start();
+		
+		
+		Thread t6 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,500,600);} 
+			});
+		t6.start();
+		
+		Thread t7 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,600,700);} 
+			});
+		t7.start();
+		
+		Thread t8 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawMandelbrotSet(set,window,700,800);} 
+			});
+		t8.start();
+		
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+			t5.join();
+			t6.join();
+			t7.join();
+			t8.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
 		}
+		
+		
+		
+		
 		window.display();//display the rendered set
 	}
 	
 	public static void renderJuliaSet(Julia set) {
 		//rendering the mandelbrot set
 		Interface window = new Interface("Julia Set");
-		for(int x=0 ; x < HEIGHT ; x++) {
-			for(int y=0 ; y < WIDTH ; y++) {
-				window.draw(x,y,set.getColour(x, y));
-			}
+		
+		
+		
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,0,100);} 
+			});
+		t1.start();
+		
+		
+		Thread t2 = new Thread(new Runnable() {			
+			@Override
+			public void run() {drawJuliaSet(set,window,100,200);} 
+			});
+		t2.start();
+		
+		
+		Thread t3 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,200,300);} 
+			});
+		t3.start();
+		
+		
+		Thread t4 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,300,400);} 
+			});
+		t4.start();
+		
+		Thread t5 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,400,500);} 
+			});
+		t5.start();
+		
+		
+		Thread t6 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,500,600);} 
+			});
+		t6.start();
+		
+		Thread t7 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,600,700);} 
+			});
+		t7.start();
+		
+		Thread t8 = new Thread(new Runnable() {
+			@Override
+			public void run() {drawJuliaSet(set,window,700,800);} 
+			});
+		t8.start();
+		
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+			t5.join();
+			t6.join();
+			t7.join();
+			t8.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
 		}
+		
 		window.display();//display the rendered set
 	}
 	
@@ -147,6 +302,26 @@ public class Fractal{
 				+ "java Fractal [Julia] [Real Part of C] [Imaginary Part of C]\n"
 				+ "java Fractal [Julia] [Real Part of C] [Imaginary Part of C] [Number of Iterations]");
 		System.exit(0);
+	}
+	
+	
+	public static void drawMandelbrotSet(Mandelbrot set, Interface window , int start, int end) {
+		for(int x=start ; x < end ; x++) {
+			for(int y=0 ; y < WIDTH ; y++) {
+				window.draw(x,y,set.getColour(x, y));
+			}
+		}
+		
+	}
+	
+	
+	public static void drawJuliaSet(Julia set, Interface window , int start, int end) {
+		for(int x=start ; x < end ; x++) {
+			for(int y=0 ; y < WIDTH ; y++) {
+				window.draw(x,y,set.getColour(x, y));
+			}
+		}
+		
 	}
 	
 	
