@@ -6,8 +6,8 @@ import javax.swing.*;
 //This is the Interface that Displays the Set
 @SuppressWarnings("serial")
 public class Interface extends JComponent{
-	private final int HEIGHT = 800;
-	private final int WIDTH = 800;
+	private final int HEIGHT = 800;//The height of the plane is 800 pixels
+	private final int WIDTH = 800;//The width of the plane is 800 pixels
 	
 	private BufferedImage bi;
 	private JFrame frame;
@@ -15,7 +15,7 @@ public class Interface extends JComponent{
 	//Building the Interface
 	public Interface(String name){
 		
-		
+		//Creating the frame
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(this);
@@ -23,17 +23,20 @@ public class Interface extends JComponent{
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		
+		//this bufferedImage is used to colour the canvas
 		bi = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	
 	}
 	
 	@Override
 	public void addNotify() {
+		//set the size of the component
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 	}
 	
 	@Override
 	public void paint(Graphics g) {
+		//Drawing in the bufferedImage
 		g.drawImage(bi,0,0,null);
 	}
 	
@@ -42,6 +45,7 @@ public class Interface extends JComponent{
 	}
 	
 	public void display() {
+		//setting the visibility of the frame
 		frame.setVisible(true);
 	}
 

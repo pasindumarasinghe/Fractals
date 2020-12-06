@@ -1,17 +1,38 @@
 
 
-/*
+/*=============================
  * E/17/207 - Marasinghe MAPG
- * CO225 - Project 1
- * Fractals
+ * CO225 - Project 1 - Fractals
+ * Submitted Date : 2020-12-06
+ * e17207@eng.pdn.ac.lk
+ *=============================
  */
 
-
 public class Fractal{
-	
+	//The size of the canvas is 800x800 pixels
 	final static int HEIGHT = 800,WIDTH = 800;
 	
 	public static void main(String [] args) {
+		/*
+		 Here, the command line arguments are handled.The user should specify what set to print(Mandelbrot/Julia).
+		 The user can enter atmost 5 arguments for the mandelbrot set and 3 arguments for the Julia set
+		 
+		 The Valid Argument combinations for the Mandelbrot Set
+		 ------------------------------------------------------
+		 *No arguments(Then the default values are taken into consideration).
+		 *[Number of Iterations]
+		 *[Minimum of the Real Axis] [Maximum of the Real Axis]
+		 *[Minimum of the Real Axis] [Maximum of the Real Axis] [Number of Iterations]
+		 
+		 The Valid Argument combinations for the Julia Set
+		 -------------------------------------------------
+		 *No argument(The default values are taken into consideration)
+		 *[Number of iterations]
+		 *[Real Part of C] [Imaginary Part of C]
+		 *[Real Part of C] [Imaginary Part of C] [Number of Iterations]
+		 
+		 */
+		
 		double real_min,real_max,imaginary_min,imaginary_max,c_real,c_imaginary;
 		int iterations;
 		
@@ -26,29 +47,29 @@ public class Fractal{
 //		----------------------------------------
 		if(args[0].toLowerCase().equals("mandelbrot")) {//Handeling the arguments for the Mandelbrot set
 		//The user wants to draw a Mandelbrot Set
-			if(args.length == 1) {
+			if(args.length == 1) {//when the user does not specify anything
 				renderMandelbrotSet(new Mandelbrot());
 			}
 			
-			else if(args.length == 2) {
+			else if(args.length == 2) {//when the user specifies the number of iterations
 				try {
 					iterations = Integer.parseInt(args[1]);
-					renderMandelbrotSet(new Mandelbrot(iterations));
+					renderMandelbrotSet(new Mandelbrot(iterations));//Render the mandelbrot set
 				}
-				catch(Exception e) {
+				catch(Exception e) {//If an exception is found, An error message with the proper usage is peinted on the screen
 					System.out.println("Invalid Input");
 					printUsage();
 				}
 			}
 			
-			else if(args.length == 5) {
+			else if(args.length == 5) {//When the user specifies the region of interest
 				try {
 					real_min = Double.parseDouble(args[1]);
 					real_max = Double.parseDouble(args[2]);
 					imaginary_min = Double.parseDouble(args[3]);
 					imaginary_max = Double.parseDouble(args[4]);
 					
-					renderMandelbrotSet(new Mandelbrot(real_min,real_max,imaginary_min,imaginary_max));
+					renderMandelbrotSet(new Mandelbrot(real_min,real_max,imaginary_min,imaginary_max));//Render the Mandelbrot set
 				}
 				catch(Exception e) {
 					System.out.println("Invalid Input");
@@ -57,7 +78,7 @@ public class Fractal{
 				
 			}
 			
-			else if(args.length == 6) {
+			else if(args.length == 6) {//when the user specifies the region of interest and the number of iterations
 				try {
 					real_min = Double.parseDouble(args[1]);
 					real_max = Double.parseDouble(args[2]);
@@ -85,11 +106,11 @@ public class Fractal{
 //		 When the User wants the Julia Set
 //		------------------------------------
 		else if(args[0].toLowerCase().equals("julia")) {
-			if(args.length == 1) {
+			if(args.length == 1) {//When the user does not specify anything
 				renderJuliaSet(new Julia());
 			}
 			
-			else if(args.length == 2) {
+			else if(args.length == 2) {//When the user only specifies the number of Iterations
 				try {
 					iterations = Integer.parseInt(args[1]);
 					renderJuliaSet(new Julia(iterations));
@@ -100,7 +121,7 @@ public class Fractal{
 				}
 			}
 			
-			else if(args.length == 3) {
+			else if(args.length == 3) {//when the user only specifies C
 				try {
 					c_real = Double.parseDouble(args[1]);
 					c_imaginary = Double.parseDouble(args[2]);
@@ -112,7 +133,7 @@ public class Fractal{
 				}
 			}
 			
-			else if(args.length == 4) {
+			else if(args.length == 4) {//When the user specifies C as well as the number of Iterations
 				try {
 					c_real = Double.parseDouble(args[1]);
 					c_imaginary = Double.parseDouble(args[2]);
@@ -125,7 +146,7 @@ public class Fractal{
 				}
 			}
 			
-			else {
+			else {//If the user enters a invalid number of inputs, An error message along with the proper usage is printed
 				System.out.println("Wrong Number of Inputs");
 				printUsage();
 			}
@@ -144,6 +165,12 @@ public class Fractal{
 		//rendering the mandelbrot set
 		Interface window = new Interface("Mandelbrot Set");
 		
+		/*
+		 The canvas is of 800x800 pixels and it has 800 rows and 800 columns, one thread is used to calculate whether the pixels in 
+		 the row are Mandelbrot Numbers. 8 threads are used to render the whole set using 1 thread for one row.
+		*/
+		
+		//Creating thread objects and run them
 		Thread t1 = new Thread(new Runnable() {
 			@Override
 			public void run() {drawMandelbrotSet(set,window,0,100);} 
@@ -221,7 +248,7 @@ public class Fractal{
 		//rendering the mandelbrot set
 		Interface window = new Interface("Julia Set");
 		
-		
+		//These threads have the same funtionality as for the Mandelbrot set
 		
 		Thread t1 = new Thread(new Runnable() {
 			@Override
@@ -293,12 +320,14 @@ public class Fractal{
 		window.display();//display the rendered set
 	}
 	
-	public static void printUsage() {
+	public static void printUsage() {//printing the proper usage of the arguments & the combinations of arguments
 		System.out.println(""
 				+ "Usage : \n"
 				+ "java Fractal [Mandelbrot/Julia]\n"
+				+ "java Fractal [Mandelbrot] [Number of Iterations]\n"
 				+ "java Fractal [Mandelbrot] [Region of Interest]\n"
 				+ "java Fractal [Mandelbrot] [Region of Interest] [Number of Iterations]\n"
+				+ "java Fractal [Julia] [Number of Iterations]\n"
 				+ "java Fractal [Julia] [Real Part of C] [Imaginary Part of C]\n"
 				+ "java Fractal [Julia] [Real Part of C] [Imaginary Part of C] [Number of Iterations]");
 		System.exit(0);
@@ -306,6 +335,7 @@ public class Fractal{
 	
 	
 	public static void drawMandelbrotSet(Mandelbrot set, Interface window , int start, int end) {
+		//drawing a part of the Mandelbrot set for points within a specified range
 		for(int x=start ; x < end ; x++) {
 			for(int y=0 ; y < WIDTH ; y++) {
 				window.draw(x,y,set.getColour(x, y));
@@ -316,6 +346,7 @@ public class Fractal{
 	
 	
 	public static void drawJuliaSet(Julia set, Interface window , int start, int end) {
+		//drawing a part of the Julia set for points within a specified range
 		for(int x=start ; x < end ; x++) {
 			for(int y=0 ; y < WIDTH ; y++) {
 				window.draw(x,y,set.getColour(x, y));

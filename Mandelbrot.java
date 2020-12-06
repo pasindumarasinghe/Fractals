@@ -7,13 +7,14 @@ public class Mandelbrot {
 	private int iterations;//number of iterations
 	
 	//The region of interest
-	private double real_min;
-	private double real_max;
-	private double imaginary_min;
-	private double imaginary_max;
+	private double real_min;//minimum of the real axis
+	private double real_max;//maximum of the real axis
+	private double imaginary_min;//minimum of the imaginary axis
+	private double imaginary_max;//maximum of the imaginary axis
 	
 	
 	public Mandelbrot() {//default constructor
+		//when the user has not specified anything, the default values are used
 		this.iterations = 1000;
 		this.real_min = -1.0;
 		this.real_max = 1.0;
@@ -31,7 +32,7 @@ public class Mandelbrot {
 	}
 	
 	public Mandelbrot(double real_min,double real_max,double imaginary_min,double imaginary_max) {
-		//when the user enters 4 command line arguments(The region of interest)
+		//when the user enters 4 command line arguments(Only the region of interest)
 		this.real_min = real_min;
 		this.real_max = real_max;
 		this.imaginary_min = imaginary_min;
@@ -50,6 +51,11 @@ public class Mandelbrot {
 	
 	
 	public int getColour(int xvalue, int yvalue) {
+		/*This method returns an integer corresponding to the number of iterations took place. If the number of iterations which were 
+		  taken place in the method is equal to the number of iterations specified, that means Zn converges.So, the number is a Mandelbrot
+		  number.Therefore the method outputs black. Otherwise, a colour is returned according to the number of iterations it took ABS(Z)
+		  to exceeded 2.
+		 */
 		Complex mapped_point = new Complex(xvalue,yvalue,real_min,real_max,imaginary_min,imaginary_max);
 		double cr = mapped_point.getX();
 		double ci = mapped_point.getY();
@@ -74,7 +80,8 @@ public class Mandelbrot {
 		number.
 		 */
 		if(i == iterations) return 0x000000; //if the complex number is a mandelbrot number return black
-		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1);//else assign a color according to the iterations
+		else return Color.HSBtoRGB((i/((float)iterations)*10), 1, 1);
+		//else assign a color according to the number of iterations when the hugh.saturation and the brightness is given
 		
 	}
 	
