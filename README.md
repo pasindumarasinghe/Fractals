@@ -1,2 +1,3 @@
-# Fractals
-This is the Java Project 1 - Fractals
+# Fractals Generator 
+
+Plots two of the most popular fractals; Mandelbrot and Julia sets.
